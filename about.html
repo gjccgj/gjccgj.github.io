@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Yixi Tang</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+
+        /* --- NAVIGATION --- */
+        .nav-back {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+        }
+
+        .nav-back a {
+            color: #666;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+
+        .nav-back a:hover { color: #fff; }
+
+        /* --- BIO CONTENT --- */
+       /* 3. LAYOUT CONTAINER */
+    /* 3. LAYOUT CONTAINER */
+/* 3. LAYOUT CONTAINER */
+/* 3. LAYOUT CONTAINER */
+/* 3. LAYOUT CONTAINER */
+.container {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    width: 100% !important;
+    max-width: none !important;
+    padding-left: 15%; /* Moves the photo from the left edge */
+    gap: 0 !important; /* We set gap to 0 so the margin does the work */
+}
+
+.bio-image {
+    /* 1. LOCK THE SIZE HERE */
+    /* Adjust 'height' to make the box larger or smaller on your screen */
+    height: 65vh; 
+    aspect-ratio: 3508 / 4961;
+    
+    flex-shrink: 0 !important;
+    border: 1px solid #333;
+    overflow: hidden;
+}
+
+.bio-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Keeps the photo from stretching */
+}
+
+.bio-text {
+    width: 400px !important; 
+    flex-shrink: 0 !important;
+
+    /* 2. ADJUST THIS TO MOVE THE TEXT */
+    /* This pushes the text away from the photo */
+    transform: translateX(-300px) !important;
+}
+h1 {
+    font-size: 3.2rem;
+    text-transform: uppercase;
+    letter-spacing: 8px;
+    margin: 0 0 10px 0;
+    line-height: 1.1;
+}
+.description {
+    line-height: 1.8;
+    font-size: 0.95rem;
+    color: #bbb;
+    margin-bottom: 40px;
+}
+    
+
+        h2 {
+            font-size: 1rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        .description {
+            line-height: 1.9;
+            font-size: 1rem;
+            color: #ccc;
+            margin-bottom: 40px;
+        }
+
+        .contact-link {
+            color: #fff;
+            text-decoration: none;
+            border-bottom: 1px solid #fff;
+            padding-bottom: 5px;
+            align-self: flex-start;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .contact-link:hover { opacity: 0.6; }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .container { grid-template-columns: 1fr; gap: 40px; }
+            h1 { font-size: 2.5rem; }
+            .nav-back { top: 20px; left: 20px; }
+        }
+
+        .cv-link {
+    display: inline-block;
+    margin-top: 40px; /* Space above the link */
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: #ffffff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 5px;
+}
+
+.cv-link .arrow {
+    display: inline-block;
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+}
+
+/* Hover Effect: The underline gets brighter and the arrow moves */
+.cv-link:hover {
+    color: #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, 1);
+}
+
+.cv-link:hover .arrow {
+    transform: translateX(8px); /* The arrow slides right */
+}
+    </style>
+</head>
+<body>
+
+    <nav class="nav-back">
+        <a href="index.html">← Back to Gallery</a>
+    </nav>
+
+        <div class="container">
+    <div class="inner-wrap"> <div class="bio-text">
+            </div>
+
+        <div class="bio-image">
+            <img src="myphoto.JPG" alt="Portrait">
+        </div>
+    </div>
+</div>
+</div>
+        </div>
+
+        <div class="bio-text">
+            <h1>Yixi Tang</h1>
+            <!-- <h2>Creative Developer & Designer</h2> -->
+            
+            <div class="description">
+                <p>Yixi Tang is now a Chicago-based interdisciplinary fashion and art-tech artist whose work explores the intersection between physical garment design and virtual digital experiences through experimental materials, interactive media, and computational tools. Drawing inspi-
+                    ration from digital culture, hybrid identity, and the blurring boundary between real and virtual spaces, they create innovative, cross-disciplinary works that reimagine fashion as both physical craft and immersive digital expression.</p>
+                
+                <p>Yixi Tang is currently pursuing the studies at the School of the Art Institute of Chicago(SAIC). Their creative projects have been presented in student exhibitions and experimental showcases at SAIC.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <a href="cv.png" target="_blank" class="cv-link">
+        VIEW CV <span class="arrow">→</span>
+    </a>
+
+</body>
+</html>
