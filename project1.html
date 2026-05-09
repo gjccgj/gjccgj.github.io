@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        .intro-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem !important; /* Larger than normal */
+            line-height: 1.6;
+            font-weight: 500; /* Medium weight */
+            color: #ffffff;
+            margin-bottom: 25px;
+            letter-spacing: -0.01em; /* Tighter letter spacing looks better for large text */
+        }
+
+        .time{
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem !important; /* Standard readable size */
+            line-height: 1.8; /* More breathing room for smaller text */
+            font-weight: 200; /* Lighter weight for contrast */
+            color: rgba(255, 255, 255, 0.8); /* Slightly dimmed so it doesn't compete with the intro */
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden; /* Prevents whole page from scrolling */
+        }
+
+        /* --- LEFT SIDE: Table of Contents --- */
+        .toc-sidebar {
+            width: 30%;
+            border-right: 1px solid #333;
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #666;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            /* This makes the 'Back' link turn white and smooth when you hover */
+        }
+            
+        .back-btn:hover {
+            color: #fff;            /* Turns the text white */
+            transition: 0.3s ease;  /* Makes the color change smooth, not instant */
+            padding-left: 5px;      /* Optional: subtle move to the right to match TOC effect */
+        }
+    
+
+        .toc-item {
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: 0.3s;
+            list-style: none;
+        }
+
+        .toc-item:hover, .toc-item.active {
+            color: #fff;
+            padding-left: 10px;
+        }
+
+        /* --- RIGHT SIDE: Details Content --- */
+        .details-content {
+            width: 70%;
+            padding: 60px 80px;
+            overflow-y: auto; /* Only the right side scrolls */
+            scroll-behavior: smooth;
+        }
+
+        .content-section {
+            display: none; /* Hidden by default */
+            animation: fadeIn 0.5s ease;
+        }
+
+        .content-section.active {
+            display: block; /* Show active section */
+        }
+
+        h1 {
+            font-size: 3rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .project-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover; /* Maintains aspect ratio */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="toc-sidebar">
+        <a href="index.html" class="back-btn">← Back</a>
+        <ul>
+    <li class="toc-item" onclick="showSection('Nosu')">01. Nosu</li>
+    <li class="toc-item" onclick="showSection('Serial Killer')">02. Serial Killer</li>
+    <li class="toc-item" onclick="showSection('Window')">03. Window</li>
+    <li class="toc-item" onclick="showSection('Sand')">04. Sand</li>
+    <li class="toc-item" onclick="showSection('Abbebe')">05. Abbebe</li>
+    <li class="toc-item" onclick="showSection('Nosu Bloom')">06. Nosu Bloom</li>
+    <li class="toc-item" onclick="showSection('Memory')">07. Memory</li>
+    <li class="toc-item" onclick="showSection('Universe Phonebooth')">08. Universe Phonebooth</li>
+    <li class="toc-item" onclick="showSection('Other Works')">09. Other Works</li>
+    
+</ul>
+        </ul>
+    </div>
+<div class="details-content">
+
+    <div id="Nosu" class="content-section">
+    <h1>Nosu</h1>
+    <div class="project-img">
+        <img src="Nosu1.png" alt="Project Description">
+        <img src="project1.png" alt="Project Description">
+    </div>
+    <p class="time">May 7, 2026</p>
+    <p class="intro-text">
+        This garment draws inspiration from the rich cultural heritage of the Nosu (Yi) minority group, reinterpreting its traditional cultural essence through a contemporary lens. I intentionally break free from conventional ethnic costume silhouettes, deconstructing and reimagining classic structural forms to craft fluid proportions that bridge heritage and avant-garde design.
+    </p>
+    <div class="project-img">
+        <img src="Nosu2.JPG" alt="Project Description">
+        <img src="Nosu3.JPG" alt="Project Description">
+    <p class="time">Illustrations</p>
+    <div class="project-img"></div>
+        <img src="Nosu4.jpg" alt="Project Description">
+    <p class="time">Fabric manipulation & Drapings</p>
+    <div class="project-img"></div>
+        <img src="Nosu5.jpg" alt="Project Description">
+    <p class="time">Muslin</p>
+    <div class="project-img"></div>
+        <img src="Nosu6.jpg" alt="Project Description">
+    <p class="time">Natural hand dye</p>
+</div>
+
+    <div id="Serial Killer" class="content-section">
+    <h1>Serial Killer</h1>
+    <div class="project-img">
+        <img src="project2.JPG" alt="Project Description">
+    </div>
+    <p class="time">DATE HERE</p>
+    <p class="intro-text">LARGE STARTING TEXT HERE</p>
+    <p class="body-text">SMALLER DETAILED TEXT HERE</p>
+</div>
+
+    <div id="Window" class="content-section">
+        <h1>Window</h1>
+        <div class="project-img"></div>
+        <p>Built with CSS 3D transforms, requestAnimationFrame for smooth interaction, and a variable-based zoom system. This project pushes the limits of standard DOM manipulation.</p>
+    </div>
+
+    <div id="Sand" class="content-section">
+        <h1>Sand</h1>
+        <div class="project-img"></div>
+        <p>Built with CSS 3D transforms, requestAnimationFrame for smooth interaction, and a variable-based zoom system. This project pushes the limits of standard DOM manipulation.</p>
+    </div>
+
+        <div id="Abbebe" class="content-section">
+            <h1>Abbebe</h1>
+            <div class="project-img"></div>
+            <p>From initial sketches to digital prototypes, the process involved rigorous testing of camera angles and rotation physics to ensure the 3D book felt natural to the touch.</p>
+        </div>
+
+        <div id="Nosu Bloom" class="content-section">
+            <h1>Nosu Blooom</h1>
+            <div class="project-img"></div>
+            <p>Built with CSS 3D transforms, requestAnimationFrame for smooth interaction, and a variable-based zoom system. This project pushes the limits of standard DOM manipulation.</p>
+        </div>
+
+        <div id="Memory" class="content-section">
+            <h1>Memory</h1>
+            <div class="project-img"></div>
+            <p>Built with CSS 3D transforms, requestAnimationFrame for smooth interaction, and a variable-based zoom system. This project pushes the limits of standard DOM manipulation.</p>
+        
+        </div><div id="Universe Phonebooth" class="content-section">
+            <h1>Universe Phonebooth</h1>
+            <div class="project-img"></div>
+            <p>Built with CSS 3D transforms, requestAnimationFrame for smooth interaction, and a variable-based zoom system. This project pushes the limits of standard DOM manipulation.</p>
+        </div>
+
+        <div id="Other Works" class="content-section">
+            <h1>Other Works</h1>
+            <div class="project-img"></div>
+            <p>Future iterations will include dynamic page loading and enhanced VR support, allowing users to step inside the book environment through a headset.</p>
+        </div>
+
+    </div>
+
+    <script>
+    // This function handles the actual switching
+    function showSection(sectionId) {
+        // 1. Remove 'active' from all content divs and TOC list items
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        document.querySelectorAll('.toc-item').forEach(item => {
+            item.classList.remove('active');
+        });
+
+        // 2. Show the div that matches the ID
+        const target = document.getElementById(sectionId);
+        if (target) {
+            target.classList.add('active');
+            
+            // 3. Find the TOC item that matches and make it white
+            // This looks for any item where the 'onclick' contains our ID
+            const tocItem = document.querySelector(`.toc-item[onclick*="${sectionId}"]`);
+            if (tocItem) {
+                tocItem.classList.add('active');
+            }
+        }
+    }
+
+    // This part handles the "Jump" when the page first loads
+    document.addEventListener('DOMContentLoaded', () => {
+        const params = new URLSearchParams(window.location.search);
+        const section = params.get('section');
+
+        if (section) {
+            showSection(section);
+        } else {
+            // Default to overview if no section is in the URL
+            showSection('Nosu');
+        }
+    });
+
+    
+</script>
+ 
+</body>
+</html>

@@ -1,0 +1,219 @@
+:root {
+    --bg: #000000;       /* Black background */
+    --text: #c0c0c0;     /* White text */
+    --accent: #ffffff;   /* Keeping the blue for buttons */
+}
+
+body {
+    /* We renamed the class to something simple and set the weight to 400 (normal) */
+.montserrat-text {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400; 
+  font-style: normal;
+}
+    line-height: 1.6;
+    margin: 0;
+    color: var(--text);
+    background: var(--bg);
+}
+
+.logo, nav a {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700; /* Makes the logo bold */
+    user-select: none;
+    -webkit-user-select: none; /* Safari support */
+}
+
+nav {
+    display: flex;
+    flex-direction: column; /* Stacks the Logo above the Links */
+    align-items: flex-start; /* Aligns everything to the left */
+    padding: 2rem 5%;
+    gap: 1rem; /* Space between the Logo and the list */
+}
+
+.logo {
+    font-size: 2rem;    /* Makes it larger than the links */
+    font-weight: 500;      /* Makes it nice and bold */
+    color: var(--text);    /* Uses your white text color */
+    letter-spacing: -1px;  /* Optional: tightens letters for a modern look */
+    margin-bottom: 0.5rem;   /* Adds space between the logo and 'Work' */
+    text-transform: uppercase;
+     text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 
+                 0 0 15px rgba(255, 255, 255, 0.3);
+                 
+    /* Optional: If your logo is a link, add this to ensure no underline */
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none; /* Safari support */
+}
+
+nav ul {
+    display: flex;
+    flex-direction: column; /* Stacks 'Work', 'About', 'Contact' vertically */
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 0.8rem; /* Space between each individual link */
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text);
+    text-decoration: none;
+    color: var(--text);
+    
+    /* CHANGE THIS VALUE */
+    font-size: 1rem;   /* 'rem' is better than 'px' for scaling */
+    
+    font-weight: 500;    /* Optional: 300 for thin, 700 for bold */
+    text-transform: uppercase; /* Optional: makes them all CAPS for a clean look */
+    letter-spacing: 1px;       /* Optional: adds space between letters */
+
+    /* THE GLOW: horizontal | vertical | blur-radius | color */
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 
+                 0 0 15px rgba(255, 255, 255, 0.3);
+
+    display: inline-block; /* Required for 'scale' to work perfectly */
+    transition: transform 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--accent);
+    transform: scale(1.05); 
+    
+    color: #ffffff;
+    /* Keep your glow effect here */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+nav a:active {
+    transform: scale(0.98); /* Optional: feels like a real button press */
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 5%;
+}
+
+:root {
+    /* Your existing variables... */
+    --book-width: 180px; /* Width of ONE page */
+    --book-height: 250px;
+}
+
+
+/* 1. The Parent Container (Adds perspective to the scene) */
+.book-container {
+    perspective: 2000px; /* Crucial for 3D! Sets how 'far' the viewpoint is */
+    perspective-origin: center -100px; /* Looks slightly from above */
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    user-select: none;
+    -webkit-user-select: none;
+    width: 100%;
+    height: 400px; /* Gives the book space to exist */
+    align-items: center;
+    position: relative;
+}
+
+/* 2. The Object (Holds the pages in the 3D space) */
+.book-3d {
+    position: absolute;
+    left: 50%;
+    /* We set a base width, then height is ~70.6% of width */
+    width: 350px;  
+    height: 247px; 
+    transform-style: preserve-3d;
+    transform: rotateX(var(--rotX, 0deg)) rotateY(var(--rotY, 0deg)) translateZ(var(--book-z, 0px));
+    cursor: grab;
+    will-change: transform;
+    transition: transform 0.3s ease-out;
+
+}
+
+/* When the mouse is over the book, pause the animation on ALL pages inside it */
+.book-3d:hover, 
+.book-3d:hover .page {
+    animation-play-state: paused !important;
+}
+
+/* 4. Left Pages (Standing and facing right) */
+.page-left {
+    right: 0; /* Anchored to the central 'spine' */
+    transform-origin: right center; /* Rotates from the spine */
+    transform: rotateY(-35deg); /* Default open angle */
+}
+
+/* 5. Right Pages (Standing and facing left) */
+.page-right {
+    left: 0; /* Anchored to the central 'spine' */
+    transform-origin: left center; /* Rotates from the spine */
+    transform: rotateY(35deg); /* Default open angle */
+}
+
+@keyframes spin360 {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(360deg); }
+} 
+
+.page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* Keep this at 0 so it stays attached to the 'left: 50%' line */
+    left: 0; 
+    top: 0;
+    
+    /* Clean up the look for the new ratio */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px; /* Sharper corners look better for A4 ratio */
+    background: #1a1a1a;
+    
+    transform-origin: left center;
+    animation: spin360 40s linear infinite;
+    backface-visibility: visible;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    
+}
+
+/* Each page takes 8 seconds to finish a full circle. 
+   By delaying them by 2-second intervals, they space out perfectly. */
+
+.page:nth-child(1) { animation-delay: 0s; }
+.page:nth-child(2) { animation-delay: -5s; }
+.page:nth-child(3) { animation-delay: -10s; }
+.page:nth-child(4) { animation-delay: -15s; }
+.page:nth-child(5) { animation-delay: -20s; }
+.page:nth-child(6) { animation-delay: -25s; }
+.page:nth-child(7) { animation-delay: -30s; }
+.page:nth-child(8) { animation-delay: -35s; }
+
+.page a {
+    display: block;      /* Makes the link fill the whole page */
+    width: 100%;
+    height: 100%;
+    text-decoration: none; /* Removes the ugly blue underline */
+}
+
+.page img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;    /* Ensures your photo fills the page without squishing */
+    border-radius: 4px;
+    display: block;
+    transition: transform 0.3s ease; /* Adds a nice "pop" effect */
+}
+
+.book-3d:active {
+    cursor: grabbing;
+}
+
+#book-3d.dragging {
+    animation-play-state: paused;
+    transition: none; /* Disable transition while dragging for instant response */
+}

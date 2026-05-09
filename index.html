@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">Yixi Tang</div>
+        <ul>
+            <li><a href="project1.html">Work</a></li>
+            <a href="about.html">About</a>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+    <div class="book-container">
+        <div id="book-3d" class="book-3d">
+            <div class="page"><a href="project1.html?section=Nosu"><img src="project1.png" alt="Work 1"></a></div>
+            <div class="page"><a href="project1.html?section=Serial_Killer"><img src="project2.jpg" alt="Work 2"></a></div>
+            <div class="page"><a href="project1.html?section=Window"><img src="project3.jpg" alt="Work 3"></a></div>
+            <div class="page"><a href="project1.html?section=Sand"><img src="project4.png" alt="Work 4"></a></div>
+            <div class="page"><a href="project1.html?section=Abbebe"><img src="project5.jpg" alt="Work 5"></a></div>
+            <div class="page"><a href="project1.html?section=Nosu Bloom"><img src="project6.jpg" alt="Work 6"></a></div>
+            <div class="page"><a href="project1.html?section=Memory"><img src="project7.png" alt="Work 7"></a></div>
+            <div class="page"><a href="project1.html?section=Universe Phonebooth"><img src="project8.jpg" alt="Work 8"></a></div>
+        </div>
+    </div>
+</header>
+
+<script>
+    const book = document.getElementById('book-3d');
+    let rotX = 0, rotY = 0, scale = 1;
+    let isDragging = false;
+
+
+    window.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        book.classList.add('dragging');
+    });
+// Update the variables while dragging
+window.addEventListener('mousemove', (e) => {
+    if (isDragging) {
+        rotY += e.movementX * 0.5;
+        rotX -= e.movementY * 0.5;
+        // Keep the transform applied
+        book.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) scale(${scale})`;
+    }
+});
+
+// When unclicking, do NOT reset the transform to ''
+window.addEventListener('mouseup', () => {
+    isDragging = false;
+    book.classList.remove('dragging');
+    
+    // Instead of clearing the transform, we leave it exactly where it is.
+    // The CSS animation will now start spinning from this new angle!
+});
+
+    window.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        scale = Math.min(Math.max(0.5, scale + e.deltaY * -0.001), 2.5);
+
+    }, { passive: false });
+
+    // This runs the moment the page opens
+    window.onload = function() {
+        // 1. Check the URL for the 'section' (e.g., ?section=process)
+        const urlParams = new URLSearchParams(window.location.search);
+        const sectionToOpen = urlParams.get('section');
+
+        // 2. If a section was specified, open it!
+        if (sectionToOpen) {
+            showSection(sectionToOpen);
+        }
+    };
+
+    // Keep your existing showSection function, but make sure 
+    // it also handles the highlighting of the TOC items.
+    function showSection(sectionId) {
+        // Hide all sections
+        document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+        // Remove 'active' from all TOC items
+        document.querySelectorAll('.toc-item').forEach(i => i.classList.remove('active'));
+
+        // Show the specific section
+        const targetSection = document.getElementById(sectionId);
+        if (targetSection) {
+            targetSection.classList.add('active');
+        }
+
+        // Find the TOC item that belongs to this ID and make it white
+        const activeItem = document.querySelector(`[onclick="showSection('${sectionId}')"]`);
+        if (activeItem) {
+            activeItem.classList.add('active');
+        }
+
+        let isPaused = false;
+
+const bookElement = document.getElementById('book-3d');
+
+bookElement.addEventListener('mouseenter', () => { isPaused = true; });
+bookElement.addEventListener('mouseleave', () => { isPaused = false; });
+
+function animate() {
+    if (!isPaused) {
+        // ... your existing rotation code goes here ...
+    }
+    requestAnimationFrame(animate);
+}
+    }
+</script>
+
+
+</body>
+</html>
