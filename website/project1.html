@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Selected fashion and art-tech projects by Yixi Tang.">
+    <title>Work — Yixi Tang</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        .intro-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem !important; /* Larger than normal */
+            line-height: 1.6;
+            font-weight: 500; /* Medium weight */
+            color: #ffffff;
+            margin-bottom: 25px;
+            letter-spacing: -0.01em; /* Tighter letter spacing looks better for large text */
+        }
+
+        .time {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem !important; /* Standard readable size */
+            line-height: 1.8; /* More breathing room for smaller text */
+            font-weight: 200; /* Lighter weight for contrast */
+            color: #fff;
+        }
+
+        .content-section > h1 + .time {
+            margin-top: 0;
+        }
+
+        .content-section > h1:has(+ .time) {
+            width: fit-content;
+            max-width: 100%;
+            margin-bottom: 8px;
+        }
+
+        .content-section > h1:has(+ .time)::after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 1px;
+            margin-top: 8px;
+            background: #fff;
+            box-shadow: 0 0 4px rgba(255, 255, 255, 0.95),
+                        0 0 12px rgba(255, 255, 255, 0.7);
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            text-shadow: 0 0 3px rgba(255, 255, 255, 0.85), 0 0 12px rgba(255, 255, 255, 0.58);
+            display: flex;
+            height: 100vh;
+            overflow: hidden; /* Prevents whole page from scrolling */
+        }
+
+        /* --- LEFT SIDE: Table of Contents --- */
+        .toc-sidebar {
+            width: 30%;
+            border-right: 1px solid #333;
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #fff;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            /* This makes the 'Back' link turn white and smooth when you hover */
+        }
+            
+        .back-btn:hover {
+            color: #fff;            /* Turns the text white */
+            transition: 0.3s ease;  /* Makes the color change smooth, not instant */
+            padding-left: 5px;      /* Optional: subtle move to the right to match TOC effect */
+        }
+    
+
+        .toc-item {
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #fff;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: color 0.3s ease, padding-left 0.3s ease, text-shadow 0.3s ease;
+            list-style: none;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .toc-item:hover, .toc-item.active {
+            color: #fff;
+            padding-left: 10px;
+        }
+
+        .toc-item.active {
+            font-weight: 700;
+            text-shadow: 0 0 4px #fff,
+                         0 0 12px rgba(255, 255, 255, 0.95),
+                         0 0 24px rgba(255, 255, 255, 0.75);
+        }
+
+        /* --- RIGHT SIDE: Details Content --- */
+        .details-content {
+            width: 70%;
+            padding: 60px 80px;
+            overflow-y: auto; /* Only the right side scrolls */
+            scroll-behavior: smooth;
+        }
+
+        .content-section {
+            display: none; /* Hidden by default */
+            animation: fadeIn 0.5s ease;
+        }
+
+        .content-section.active {
+            display: block; /* Show active section */
+        }
+
+        h1 {
+            font-size: 3rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .project-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover; /* Maintains aspect ratio */
+        }
+
+        .project-gallery {
+            display: grid;
+            gap: clamp(32px, 6vw, 72px);
+            margin-top: 32px;
+        }
+
+        .project-gallery img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .other-works-list {
+            display: grid;
+            gap: clamp(56px, 9vw, 110px);
+            margin-top: 32px;
+        }
+
+        .other-project {
+            display: grid;
+            gap: 18px;
+            width: 100%;
+            justify-items: start;
+        }
+
+        .project-subtitle {
+            justify-self: start;
+            margin: 0;
+            font-size: 1.35rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-align: left;
+            text-transform: uppercase;
+        }
+
+        .project-meta {
+            margin: 0;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .other-project img {
+            display: block;
+            width: auto;
+            max-width: 100%;
+            max-height: calc(100vh - 220px);
+            height: auto;
+            object-fit: contain;
+            object-position: left top;
+            justify-self: start;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .toc-sidebar ul { margin: 0; padding: 0; list-style: none; }
+        .toc-sidebar li { list-style: none; }
+        .toc-item { border: 0; background: transparent; font-family: inherit; text-align: left; }
+
+        @media (max-width: 768px) {
+            body { display: block; height: auto; overflow: auto; }
+            .toc-sidebar {
+                position: sticky;
+                top: 0;
+                z-index: 1;
+                width: 100%;
+                padding: 20px;
+                overflow-x: auto;
+                background: #000;
+                border-right: 0;
+                border-bottom: 1px solid #333;
+            }
+            .toc-sidebar ul { display: flex; gap: 24px; width: max-content; }
+            .back-btn { display: block; margin-bottom: 20px; }
+            .toc-item { margin: 0; white-space: nowrap; }
+            .details-content { width: 100%; padding: 40px 20px; overflow: visible; }
+            h1 { font-size: 2rem; letter-spacing: 3px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="toc-sidebar" aria-label="Project navigation">
+        <a href="index.html" class="back-btn">← Back</a>
+        <ul>
+            <li><button class="toc-item" type="button" data-section="second-skin-protocol">01. Second Skin Protocol</button></li>
+            <li><button class="toc-item" type="button" data-section="ecological-body">02. Ecological Body</button></li>
+            <li><button class="toc-item" type="button" data-section="responsive-dermis">03. Responsive Dermis</button></li>
+            <li><button class="toc-item" type="button" data-section="nosu">04. Nosu</button></li>
+            <li><button class="toc-item" type="button" data-section="serial-killer">05. Serial Killer</button></li>
+            <li><button class="toc-item" type="button" data-section="window">06. Window</button></li>
+            <li><button class="toc-item" type="button" data-section="other-works">07. Other Works</button></li>
+        </ul>
+    </nav>
+<main class="details-content">
+
+    <section id="nosu" class="content-section">
+        <h1>Nosu</h1>
+        <p class="time">2025</p>
+        <div class="project-img">
+            <img src="optimized/detail/Nosu1.jpg" alt="Nosu garment on a model" decoding="async" fetchpriority="high">
+            <img src="optimized/detail/project1.jpg" alt="Nosu garment detail" loading="lazy" decoding="async">
+        </div>
+        <p class="intro-text">
+            This garment draws inspiration from the rich cultural heritage of the Nosu (Yi) minority group, reinterpreting its traditional cultural essence through a contemporary lens. I intentionally break free from conventional ethnic costume silhouettes, deconstructing and reimagining classic structural forms to craft fluid proportions that bridge heritage and avant-garde design.
+        </p>
+        <div class="project-img">
+            <img src="optimized/detail/Nosu2.jpg" alt="Nosu fashion illustration" loading="lazy" decoding="async">
+            <img src="optimized/detail/Nosu3.jpg" alt="Nosu design illustration" loading="lazy" decoding="async">
+        </div>
+        <p class="time">Illustrations</p>
+        <div class="project-img">
+            <img src="optimized/detail/Nosu4.jpg" alt="Nosu fabric manipulation study" loading="lazy" decoding="async">
+        </div>
+        <p class="time">Fabric manipulation & Drapings</p>
+        <div class="project-img">
+            <img src="optimized/detail/Nosu5.jpg" alt="Nosu muslin prototype" loading="lazy" decoding="async">
+        </div>
+        <p class="time">Muslin</p>
+        <div class="project-img">
+            <img src="optimized/detail/Nosu6.jpg" alt="Nosu natural hand-dye process" loading="lazy" decoding="async">
+        </div>
+        <p class="time">Natural hand dye</p>
+    </section>
+
+    <section id="serial-killer" class="content-section">
+    <h1>Serial Killer</h1>
+    <p class="time">2025</p>
+    <div class="project-img">
+        <img src="optimized/detail/project2.jpg" alt="Serial Killer project" loading="lazy" decoding="async">
+    </div>
+    <p class="intro-text"><strong>Serial Killer</strong> is a fashion collection that reimagines the killer as something internal: the nightmares that repeatedly return to haunt us. These nightmares emerge from deeply rooted fears, unresolved regrets, guilt, and the memories for which we still seek forgiveness. Rather than depicting literal violence, the collection explores the quiet psychological tension of being pursued by one’s own mind. Delicate lace, translucent layers, distorted silhouettes, and unusual material combinations create a dreamy yet unsettling atmosphere, where softness and unease coexist. The body appears partially concealed and partially exposed, suspended between reality and dream, beauty and fear, vulnerability and protection.</p>
+    <div class="project-gallery">
+        <img src="optimized/detail/serial-killer/serial-killer-01.jpg" alt="Serial Killer fashion collection image 1" loading="lazy" decoding="async">
+        <img src="optimized/detail/serial-killer/serial-killer-02.jpg" alt="Serial Killer fashion collection image 2" loading="lazy" decoding="async">
+        <img src="optimized/detail/serial-killer/serial-killer-03.jpg" alt="Serial Killer fashion collection image 3" loading="lazy" decoding="async">
+    </div>
+</section>
+
+    <section id="window" class="content-section">
+        <h1>Window</h1>
+        <p class="time">2024</p>
+        <div class="project-gallery">
+            <img src="optimized/detail/window/window-moodboard.jpg" alt="Window collection moodboard" decoding="async">
+            <p class="intro-text">This collection is inspired by the classical gardens of Suzhou, particularly their intricate windows and the relationship they create between positive and negative space. Rather than functioning simply as architectural decoration, each window frames the landscape beyond it, transforming plants, rocks, light, and movement into part of its composition. Drawing from this practice of constructed and borrowed scenery, the garments use cutouts, layered structures, and shifting silhouettes to frame the body and its surroundings. Empty space becomes an active design element, allowing what lies behind the garment to continuously reshape its visual form.</p>
+            <img src="optimized/detail/window/window-project.jpg" alt="Window fashion collection" loading="lazy" decoding="async">
+            <img src="optimized/detail/window/window-inside.jpg" alt="Window collection development" loading="lazy" decoding="async">
+        </div>
+    </section>
+
+    <section id="ecological-body" class="content-section">
+        <h1>Ecological Body</h1>
+        <p class="time">2026</p>
+        <div class="project-gallery">
+            <img src="optimized/detail/ecological-body/ecological-body-01.jpg" alt="Ecological Body presentation frame 1" decoding="async">
+            <img src="optimized/detail/ecological-body/ecological-body-02.jpg" alt="Ecological Body presentation frame 2" loading="lazy" decoding="async">
+            <img src="optimized/detail/ecological-body/ecological-body-03.jpg" alt="Ecological Body presentation frame 3" loading="lazy" decoding="async">
+            <img src="optimized/detail/ecological-body/ecological-body-04.jpg" alt="Ecological Body presentation frame 4" loading="lazy" decoding="async">
+            <img src="optimized/detail/ecological-body/ecological-body-05.jpg" alt="Ecological Body presentation frame 5" loading="lazy" decoding="async">
+            <img src="optimized/detail/ecological-body/ecological-body-06.jpg" alt="Ecological Body presentation frame 6" loading="lazy" decoding="async">
+        </div>
+    </section>
+
+        <section id="second-skin-protocol" class="content-section">
+            <h1>Second Skin Protocol</h1>
+            <p class="time">2026</p>
+            <div class="project-gallery">
+                <img src="optimized/detail/second-skin/second-skin-01.jpg" alt="Second Skin Protocol presentation frame 1" decoding="async">
+                <img src="optimized/detail/second-skin/second-skin-02.jpg" alt="Second Skin Protocol presentation frame 2" loading="lazy" decoding="async">
+                <img src="optimized/detail/second-skin/second-skin-03.jpg" alt="Second Skin Protocol presentation frame 3" loading="lazy" decoding="async">
+                <img src="optimized/detail/second-skin/second-skin-04.jpg" alt="Second Skin Protocol presentation frame 4" loading="lazy" decoding="async">
+                <img src="optimized/detail/second-skin/second-skin-05.jpg" alt="Second Skin Protocol presentation frame 5" loading="lazy" decoding="async">
+                <img src="optimized/detail/second-skin/second-skin-06.jpg" alt="Second Skin Protocol presentation frame 6" loading="lazy" decoding="async">
+            </div>
+        </section>
+
+        <section id="responsive-dermis" class="content-section">
+            <h1>Responsive Dermis</h1>
+            <p class="time">2026</p>
+            <div class="project-gallery">
+                <img src="optimized/detail/responsive-dermis/responsive-dermis-01.jpg" alt="Responsive Dermis kinetic surface overview" decoding="async">
+                <p class="intro-text">An interactive kinetic surface controlled through touch, light, and vertical movement, exploring how artificial materials can imitate the sensitivity and behavior of living skin.</p>
+                <img src="optimized/detail/responsive-dermis/responsive-dermis-02.jpg" alt="Responsive Dermis interaction detail" loading="lazy" decoding="async">
+                <img src="optimized/detail/responsive-dermis/responsive-dermis-03.jpg" alt="Responsive Dermis material and movement detail" loading="lazy" decoding="async">
+            </div>
+        </section>
+
+        <section id="other-works" class="content-section">
+            <h1>Other Works</h1>
+            <div class="other-works-list">
+                <section class="other-project">
+                    <h2 class="project-subtitle">Abeebe</h2>
+                    <img src="optimized/detail/other-works/abeebe-01.jpg" alt="Abeebe project image 1" decoding="async">
+                    <img src="optimized/detail/other-works/abeebe-02.jpg" alt="Abeebe project image 2" loading="lazy" decoding="async">
+                    <img src="optimized/detail/other-works/abeebe-03.jpg" alt="Abeebe project image 3" loading="lazy" decoding="async">
+                    <img src="optimized/detail/other-works/abeebe-04.jpg" alt="Abeebe project image 4" loading="lazy" decoding="async">
+                </section>
+                <section class="other-project">
+                    <h2 class="project-subtitle">BURN</h2>
+                    <img src="optimized/detail/other-works/burn.jpg" alt="BURN project" loading="lazy" decoding="async">
+                </section>
+                <section class="other-project">
+                    <h2 class="project-subtitle">Universe Phonebooth</h2>
+                    <img src="optimized/detail/other-works/universe-phonebooth-cropped.jpg" alt="Universe Phonebooth project" loading="lazy" decoding="async">
+                    <p class="project-meta">Medium: Blender</p>
+                </section>
+                <section class="other-project">
+                    <h2 class="project-subtitle">Nosu Bloom</h2>
+                    <img src="optimized/detail/other-works/nosu-bloom.jpg" alt="Nosu Bloom project" loading="lazy" decoding="async">
+                    <p class="project-meta">Medium: Procreate</p>
+                </section>
+                <section class="other-project">
+                    <h2 class="project-subtitle">Ocean</h2>
+                    <img src="optimized/detail/other-works/ocean-01-bright.jpg" alt="Ocean project image 1" loading="lazy" decoding="async">
+                    <img src="optimized/detail/other-works/ocean-02-fixed.jpg" alt="Ocean project image 2" loading="lazy" decoding="async">
+                    <p class="project-meta">Materials: yarns, beads and stones.</p>
+                </section>
+                <section class="other-project">
+                    <h2 class="project-subtitle">STAR</h2>
+                    <img src="optimized/detail/other-works/star-clean.jpg" alt="STAR project" loading="lazy" decoding="async">
+                    <p class="project-meta">Material: yarns</p>
+                </section>
+                <section class="other-project">
+                    <h2 class="project-subtitle">Memory</h2>
+                    <img src="optimized/detail/other-works/memory.jpg" alt="Memory project" loading="lazy" decoding="async">
+                    <p class="project-meta">Materials: beads, threads, hand wax natural dye fabrics</p>
+                </section>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+    // This function handles the actual switching
+    function showSection(sectionId) {
+        // 1. Remove 'active' from all content divs and TOC list items
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        document.querySelectorAll('.toc-item').forEach(item => {
+            item.classList.remove('active');
+        });
+
+        // 2. Show the div that matches the ID
+        const target = document.getElementById(sectionId);
+        if (target) {
+            target.classList.add('active');
+
+            const detailsContent = document.querySelector('.details-content');
+            detailsContent.scrollTop = 0;
+
+            if (window.matchMedia('(max-width: 768px)').matches) {
+                window.scrollTo({ top: 0, behavior: 'auto' });
+            }
+            
+            // 3. Find the TOC item that matches and make it white
+            const tocItem = document.querySelector(`.toc-item[data-section="${sectionId}"]`);
+            if (tocItem) {
+                tocItem.classList.add('active');
+            }
+        }
+    }
+
+    // This part handles the "Jump" when the page first loads
+    document.addEventListener('DOMContentLoaded', () => {
+        const params = new URLSearchParams(window.location.search);
+        const section = params.get('section');
+
+        if (section) {
+            showSection(section);
+        } else {
+            // Default to overview if no section is in the URL
+            showSection('second-skin-protocol');
+        }
+
+        document.querySelectorAll('.toc-item').forEach(item => {
+            item.addEventListener('click', () => {
+                showSection(item.dataset.section);
+                history.replaceState(null, '', `?section=${encodeURIComponent(item.dataset.section)}`);
+            });
+        });
+    });
+
+    
+</script>
+ 
+</body>
+</html>

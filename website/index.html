@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The interdisciplinary fashion and art-tech portfolio of Yixi Tang.">
+    <title>Yixi Tang — Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="site-nav" aria-label="Main navigation">
+        <a class="logo" href="index.html" aria-current="page">Yixi Tang</a>
+        <ul>
+            <li><a href="project1.html">Work</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="hero" aria-label="Selected work">
+            <div class="book-container">
+                <div id="book-3d" class="book-3d" aria-label="Drag to rotate and scroll to zoom">
+                    <div class="page"><a href="project1.html?section=nosu"><img src="optimized/thumb/project1.jpg" alt="Nosu" decoding="async"></a></div>
+                    <div class="page"><a href="project1.html?section=serial-killer"><img src="optimized/thumb/project2.jpg" alt="Serial Killer" decoding="async"></a></div>
+                    <div class="page"><a href="project1.html?section=other-works"><img src="optimized/thumb/project6.jpg" alt="Nosu Bloom" decoding="async"></a></div>
+                    <div class="page"><a href="project1.html?section=other-works"><img src="optimized/thumb/project8.jpg" alt="Universe Phonebooth" decoding="async"></a></div>
+                    <div class="page"><a href="project1.html?section=window"><img src="optimized/thumb/project3.jpg" alt="Window" decoding="async"></a></div>
+                    <div class="page"><a href="project1.html?section=ecological-body"><img src="optimized/thumb/ecological-body.jpg" alt="Ecological Body" decoding="async"></a></div>
+                    <div class="page"><a href="project1.html?section=second-skin-protocol"><img src="optimized/thumb/second-skin-protocol.jpg" alt="Second Skin Protocol" decoding="async" fetchpriority="high"></a></div>
+                    <div class="page"><a href="project1.html?section=responsive-dermis"><img src="optimized/thumb/memory.jpg" alt="Responsive Dermis" decoding="async"></a></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const book = document.querySelector('#book-3d');
+        const pointers = new Map();
+        let rotationX = 0;
+        let rotationY = 0;
+        let scale = 1;
+        let hasMoved = false;
+        let pinchStartDistance = 0;
+        let pinchStartScale = 1;
+
+        function updateTransform() {
+            book.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg) scale(${scale})`;
+        }
+
+        book.addEventListener('pointerdown', (event) => {
+            if (event.button !== 0) return;
+            pointers.set(event.pointerId, {
+                startX: event.clientX,
+                startY: event.clientY,
+                lastX: event.clientX,
+                lastY: event.clientY
+            });
+            if (pointers.size === 1) hasMoved = false;
+            if (pointers.size === 2) {
+                const [first, second] = [...pointers.values()];
+                pinchStartDistance = Math.max(1, Math.hypot(second.lastX - first.lastX, second.lastY - first.lastY));
+                pinchStartScale = scale;
+                for (const pointerId of pointers.keys()) {
+                    if (!book.hasPointerCapture(pointerId)) book.setPointerCapture(pointerId);
+                }
+            }
+        });
+
+        book.addEventListener('dragstart', (event) => event.preventDefault());
+
+        book.addEventListener('pointermove', (event) => {
+            const pointer = pointers.get(event.pointerId);
+            if (!pointer) return;
+
+            const previousX = pointer.lastX;
+            const previousY = pointer.lastY;
+            pointer.lastX = event.clientX;
+            pointer.lastY = event.clientY;
+
+            if (pointers.size === 2) {
+                const [first, second] = [...pointers.values()];
+                const distance = Math.hypot(second.lastX - first.lastX, second.lastY - first.lastY);
+                scale = Math.min(Math.max(0.5, pinchStartScale * distance / pinchStartDistance), 2.5);
+                hasMoved = true;
+                book.classList.add('dragging');
+                updateTransform();
+                return;
+            }
+
+            if (!hasMoved && Math.hypot(event.clientX - pointer.startX, event.clientY - pointer.startY) < 6) return;
+
+            hasMoved = true;
+            book.classList.add('dragging');
+            if (!book.hasPointerCapture(event.pointerId)) book.setPointerCapture(event.pointerId);
+            event.preventDefault();
+            rotationY += (event.clientX - previousX) * 0.5;
+            rotationX -= (event.clientY - previousY) * 0.5;
+            updateTransform();
+        });
+
+        function endPointer(event) {
+            pointers.delete(event.pointerId);
+            if (book.hasPointerCapture(event.pointerId)) book.releasePointerCapture(event.pointerId);
+            if (pointers.size < 2) pinchStartDistance = 0;
+            if (pointers.size === 0) book.classList.remove('dragging');
+        }
+
+        book.addEventListener('pointerup', endPointer);
+        book.addEventListener('pointercancel', endPointer);
+
+        book.addEventListener('click', (event) => {
+            if (!hasMoved) return;
+            event.preventDefault();
+            hasMoved = false;
+        }, true);
+
+        book.addEventListener('wheel', (event) => {
+            event.preventDefault();
+            scale = Math.min(Math.max(0.5, scale - event.deltaY * 0.001), 2.5);
+            updateTransform();
+        }, { passive: false });
+    </script>
+</body>
+</html>

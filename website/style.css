@@ -1,0 +1,204 @@
+:root {
+    --background: #000;
+    --text: #fff;
+    --accent: #fff;
+    --book-width: 350px;
+    --book-height: 247px;
+}
+
+* { box-sizing: border-box; }
+html { color-scheme: dark; }
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    overflow-x: hidden;
+    background: var(--background);
+    color: var(--text);
+    font-family: "Montserrat", sans-serif;
+    line-height: 1.6;
+    text-shadow: 0 0 3px rgb(255 255 255 / 85%), 0 0 12px rgb(255 255 255 / 58%);
+}
+
+a { color: inherit; }
+
+.site-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 2rem 5%;
+}
+
+.logo,
+.site-nav a {
+    font-weight: 500;
+    text-decoration: none;
+    text-transform: uppercase;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.logo {
+    margin-bottom: 0.5rem;
+    color: var(--text);
+    font-size: 2rem;
+    letter-spacing: 2px;
+    text-shadow: 0 0 4px #fff, 0 0 12px rgb(255 255 255 / 90%), 0 0 26px rgb(255 255 255 / 70%);
+}
+
+.site-nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.site-nav li a {
+    display: inline-block;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    text-shadow: 0 0 4px #fff, 0 0 12px rgb(255 255 255 / 90%), 0 0 26px rgb(255 255 255 / 70%);
+    transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.site-nav li a:hover,
+.site-nav li a:focus-visible {
+    color: var(--accent);
+    text-shadow: 0 0 5px #fff, 0 0 15px #fff, 0 0 30px rgb(255 255 255 / 85%);
+    transform: scale(1.05);
+}
+
+.site-nav li a:active { transform: scale(0.98); }
+
+.book-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 400px;
+    margin-top: 50px;
+    perspective: 2000px;
+    perspective-origin: center -100px;
+    touch-action: none;
+    user-select: none;
+}
+
+.book-3d {
+    position: absolute;
+    left: 50%;
+    width: var(--book-width);
+    height: var(--book-height);
+    cursor: grab;
+    transform: rotateX(0deg) rotateY(0deg) scale(1);
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease-out;
+    will-change: transform;
+}
+
+.book-3d:active { cursor: grabbing; }
+.book-3d.dragging { transition: none; }
+
+.book-3d:hover .page,
+.book-3d:focus-within .page { animation-play-state: paused; }
+
+@keyframes spin {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(360deg); }
+}
+
+.page {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background: #1a1a1a;
+    border: 1px solid rgb(255 255 255 / 30%);
+    border-radius: 4px;
+    box-shadow: 0 0 15px rgb(255 255 255 / 10%);
+    transform-origin: left center;
+    animation: spin 40s linear infinite;
+    backface-visibility: visible;
+}
+
+.page:nth-child(1) { animation-delay: 0s; }
+.page:nth-child(2) { animation-delay: -5s; }
+.page:nth-child(3) { animation-delay: -10s; }
+.page:nth-child(4) { animation-delay: -15s; }
+.page:nth-child(5) { animation-delay: -20s; }
+.page:nth-child(6) { animation-delay: -25s; }
+.page:nth-child(7) { animation-delay: -30s; }
+.page:nth-child(8) { animation-delay: -35s; }
+
+.page a,
+.page img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.page a {
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.page a:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 4px;
+}
+
+.page img {
+    object-fit: cover;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+/* Scale the identity and navigation only when the window is genuinely large. */
+@media (min-width: 1400px) and (min-height: 750px) {
+    .logo {
+        font-size: 2.4rem;
+        letter-spacing: 2.4px;
+    }
+
+    .site-nav li a {
+        font-size: 1.04rem;
+        letter-spacing: 1.14px;
+    }
+
+    .site-nav {
+        gap: 1.25rem;
+        padding-top: 3rem;
+    }
+
+    .site-nav ul {
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    :root {
+        --book-width: min(72vw, 350px);
+        --book-height: min(51vw, 247px);
+    }
+
+    .book-container {
+        height: 330px;
+        margin-top: 10px;
+        perspective-origin: center -40px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

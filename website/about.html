@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="About interdisciplinary fashion and art-tech artist Yixi Tang.">
+    <title>About — Yixi Tang</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        html { color-scheme: dark; }
+        body {
+            min-height: 100vh;
+            margin: 0;
+            background: #000;
+            color: #fff;
+            font-family: "Montserrat", sans-serif;
+            text-shadow: 0 0 3px rgb(255 255 255 / 85%), 0 0 12px rgb(255 255 255 / 58%);
+        }
+        .nav-back {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            z-index: 1;
+        }
+        .nav-back a {
+            color: #fff;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .nav-back a:hover,
+        .nav-back a:focus-visible { color: #fff; }
+        main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 110px 8% 70px;
+        }
+        .bio {
+            display: grid;
+            grid-template-columns: minmax(240px, 440px) minmax(280px, 520px);
+            align-items: center;
+            gap: clamp(40px, 8vw, 120px);
+            width: min(100%, 1160px);
+        }
+        .bio-image {
+            overflow: hidden;
+            aspect-ratio: 3508 / 4961;
+            border: 1px solid #333;
+        }
+        .bio-image img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        h1 {
+            margin: 0 0 30px;
+            font-size: clamp(2.4rem, 6vw, 3.2rem);
+            line-height: 1.1;
+            letter-spacing: clamp(4px, 1vw, 8px);
+            text-transform: uppercase;
+        }
+        .description {
+            color: #fff;
+            font-size: 1rem;
+            line-height: 1.9;
+        }
+        .description p { margin: 0 0 1.25rem; }
+        .cv-link {
+            position: fixed;
+            top: 50%;
+            right: 40px;
+            z-index: 2;
+            display: inline-block;
+            margin: 0;
+            padding-bottom: 5px;
+            border-bottom: 1px solid rgb(255 255 255 / 20%);
+            color: #fff;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 4px;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: border-color 0.3s ease;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            transform: translateY(-50%);
+        }
+        .cv-link .arrow {
+            display: inline-block;
+            margin-left: 10px;
+            transition: transform 0.3s ease;
+        }
+        .cv-link:hover,
+        .cv-link:focus-visible { border-color: #fff; }
+        .cv-link:hover .arrow,
+        .cv-link:focus-visible .arrow { transform: translateX(8px); }
+        .email-link {
+            display: block;
+            width: fit-content;
+            margin-top: 28px;
+            padding-bottom: 5px;
+            color: #fff;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-decoration: none;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgb(255 255 255 / 20%);
+            transition: border-color 0.3s ease;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .email-link:hover,
+        .email-link:focus-visible { border-color: #fff; }
+        @media (max-width: 768px) {
+            .nav-back { top: 20px; left: 20px; }
+            main { padding: 80px 20px 50px; }
+            .bio { grid-template-columns: 1fr; gap: 40px; }
+            .bio-image { width: min(100%, 440px); }
+            .cv-link {
+                position: static;
+                margin-top: 24px;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-back" aria-label="Back navigation">
+        <a href="index.html">← Back</a>
+    </nav>
+
+    <main>
+        <article class="bio">
+            <div class="bio-image">
+                <img src="optimized/detail/myphoto.jpg" alt="Portrait of Yixi Tang" decoding="async">
+            </div>
+            <div class="bio-text">
+                <h1>Yixi Tang</h1>
+                <div class="description">
+                    <p>Yixi Tang is a Chicago-based interdisciplinary artist and designer working across fashion, creative technology, and interactive media. Their practice combines garment construction, material experimentation, sensor-based systems, computer vision, and generative AI to explore how technology reshapes the body, identity, and physical experience.</p>
+                    <p>Yixi is completing a BFA in Fashion and Art &amp; Technology at the School of the Art Institute of Chicago (SAIC), expected in 2026. Their work spans bio-responsive wearables, environmental data visualization, experimental garments, and computational media, bringing digital systems into material and embodied forms.</p>
+                </div>
+                <a href="cv.png" target="_blank" rel="noopener" class="cv-link">
+                    View CV <span class="arrow" aria-hidden="true">→</span>
+                </a>
+                <a class="email-link" href="mailto:yixitang1208@gmail.com">yixitang1208@gmail.com</a>
+            </div>
+        </article>
+    </main>
+</body>
+</html>
