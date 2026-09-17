@@ -88,6 +88,16 @@ a { color: inherit; }
     user-select: none;
 }
 
+.interaction-hint {
+    margin: 18px 0 0;
+    color: rgb(255 255 255 / 72%);
+    font-size: 0.68rem;
+    font-weight: 200;
+    letter-spacing: 0.08em;
+    text-align: center;
+    user-select: none;
+}
+
 .book-3d {
     position: absolute;
     left: 50%;
@@ -98,13 +108,30 @@ a { color: inherit; }
     transform-style: preserve-3d;
     transition: transform 0.3s ease-out;
     will-change: transform;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+}
+
+.book-3d *,
+.book-3d *::before,
+.book-3d *::after {
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+}
+
+.book-3d *::selection {
+    background: transparent;
+    color: inherit;
 }
 
 .book-3d:active { cursor: grabbing; }
 .book-3d.dragging { transition: none; }
 
 .book-3d:hover .page,
-.book-3d:focus-within .page { animation-play-state: paused; }
+.book-3d:focus-within .page,
+.book-3d.interacting .page { animation-play-state: paused; }
 
 @keyframes spin {
     from { transform: rotateY(0deg); }
@@ -189,6 +216,11 @@ a { color: inherit; }
         height: 330px;
         margin-top: 10px;
         perspective-origin: center -40px;
+    }
+
+    .interaction-hint {
+        margin-top: 14px;
+        font-size: 0.62rem;
     }
 }
 

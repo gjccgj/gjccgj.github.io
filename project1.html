@@ -347,12 +347,12 @@
                     <h2 class="project-subtitle">BURN</h2>
                     <img src="optimized/detail/other-works/burn.jpg" alt="BURN project" loading="lazy" decoding="async">
                 </section>
-                <section class="other-project">
+                <section id="universe-phonebooth" class="other-project">
                     <h2 class="project-subtitle">Universe Phonebooth</h2>
                     <img src="optimized/detail/other-works/universe-phonebooth-cropped.jpg" alt="Universe Phonebooth project" loading="lazy" decoding="async">
                     <p class="project-meta">Medium: Blender</p>
                 </section>
-                <section class="other-project">
+                <section id="nosu-bloom" class="other-project">
                     <h2 class="project-subtitle">Nosu Bloom</h2>
                     <img src="optimized/detail/other-works/nosu-bloom.jpg" alt="Nosu Bloom project" loading="lazy" decoding="async">
                     <p class="project-meta">Medium: Procreate</p>
@@ -409,13 +409,52 @@
         }
     }
 
+    async function scrollToOtherProject(projectId) {
+        const project = document.getElementById(projectId);
+        const detailsContent = document.querySelector('.details-content');
+        if (!project || !detailsContent) return;
+
+        const precedingImages = [];
+        let currentProject = project.parentElement.firstElementChild;
+        while (currentProject) {
+            precedingImages.push(...currentProject.querySelectorAll('img'));
+            if (currentProject === project) break;
+            currentProject = currentProject.nextElementSibling;
+        }
+
+        precedingImages.forEach(image => {
+            image.loading = 'eager';
+        });
+
+        await Promise.all(precedingImages.map(image => {
+            if (image.complete) return Promise.resolve();
+            return new Promise(resolve => {
+                image.addEventListener('load', resolve, { once: true });
+                image.addEventListener('error', resolve, { once: true });
+            });
+        }));
+
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+            const projectTop = project.getBoundingClientRect().top;
+            const detailsTop = detailsContent.getBoundingClientRect().top;
+            detailsContent.scrollTo({
+                top: Math.max(0, detailsContent.scrollTop + projectTop - detailsTop - 24),
+                behavior: 'auto'
+            });
+        }));
+    }
+
     // This part handles the "Jump" when the page first loads
     document.addEventListener('DOMContentLoaded', () => {
         const params = new URLSearchParams(window.location.search);
         const section = params.get('section');
+        const project = params.get('project');
 
         if (section) {
             showSection(section);
+            if (section === 'other-works' && project) {
+                scrollToOtherProject(project);
+            }
         } else {
             // Default to overview if no section is in the URL
             showSection('second-skin-protocol');

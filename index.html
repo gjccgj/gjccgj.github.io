@@ -25,14 +25,15 @@
                 <div id="book-3d" class="book-3d" aria-label="Drag to rotate and scroll to zoom">
                     <div class="page"><a href="project1.html?section=nosu"><img src="optimized/thumb/project1.jpg" alt="Nosu" decoding="async"></a></div>
                     <div class="page"><a href="project1.html?section=serial-killer"><img src="optimized/thumb/project2.jpg" alt="Serial Killer" decoding="async"></a></div>
-                    <div class="page"><a href="project1.html?section=other-works"><img src="optimized/thumb/project6.jpg" alt="Nosu Bloom" decoding="async"></a></div>
-                    <div class="page"><a href="project1.html?section=other-works"><img src="optimized/thumb/project8.jpg" alt="Universe Phonebooth" decoding="async"></a></div>
+                    <div class="page"><a href="project1.html?section=other-works&amp;project=nosu-bloom"><img src="optimized/thumb/project6.jpg" alt="Nosu Bloom" decoding="async"></a></div>
+                    <div class="page"><a href="project1.html?section=other-works&amp;project=universe-phonebooth"><img src="optimized/thumb/project8.jpg" alt="Universe Phonebooth" decoding="async"></a></div>
                     <div class="page"><a href="project1.html?section=window"><img src="optimized/thumb/project3.jpg" alt="Window" decoding="async"></a></div>
                     <div class="page"><a href="project1.html?section=ecological-body"><img src="optimized/thumb/ecological-body.jpg" alt="Ecological Body" decoding="async"></a></div>
                     <div class="page"><a href="project1.html?section=second-skin-protocol"><img src="optimized/thumb/second-skin-protocol.jpg" alt="Second Skin Protocol" decoding="async" fetchpriority="high"></a></div>
                     <div class="page"><a href="project1.html?section=responsive-dermis"><img src="optimized/thumb/memory.jpg" alt="Responsive Dermis" decoding="async"></a></div>
                 </div>
             </div>
+            <p class="interaction-hint">Drag to explore · Click to view project</p>
         </section>
     </main>
 
@@ -52,6 +53,7 @@
 
         book.addEventListener('pointerdown', (event) => {
             if (event.button !== 0) return;
+            book.classList.add('interacting');
             pointers.set(event.pointerId, {
                 startX: event.clientX,
                 startY: event.clientY,
@@ -90,7 +92,7 @@
                 return;
             }
 
-            if (!hasMoved && Math.hypot(event.clientX - pointer.startX, event.clientY - pointer.startY) < 6) return;
+            if (!hasMoved && Math.hypot(event.clientX - pointer.startX, event.clientY - pointer.startY) < 12) return;
 
             hasMoved = true;
             book.classList.add('dragging');
@@ -105,7 +107,10 @@
             pointers.delete(event.pointerId);
             if (book.hasPointerCapture(event.pointerId)) book.releasePointerCapture(event.pointerId);
             if (pointers.size < 2) pinchStartDistance = 0;
-            if (pointers.size === 0) book.classList.remove('dragging');
+            if (pointers.size === 0) {
+                book.classList.remove('dragging');
+                window.setTimeout(() => book.classList.remove('interacting'), 80);
+            }
         }
 
         book.addEventListener('pointerup', endPointer);
