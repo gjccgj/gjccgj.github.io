@@ -1,0 +1,38 @@
+:root{color-scheme:dark;--ink:#dcecff;--glass:rgba(12,25,42,.58)}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#07101c}
+body{color:var(--ink)}
+canvas{position:fixed;inset:0;width:100%;height:100%;touch-action:none}
+button{color:inherit;-webkit-tap-highlight-color:transparent;cursor:pointer;border:0}
+nav{position:fixed;z-index:5;bottom:max(32px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);display:flex;gap:8px;padding:8px 12px;border:1px solid rgba(220,236,255,.13);border-radius:40px;background:var(--glass);box-shadow:0 14px 50px rgba(0,0,0,.24),inset 0 1px rgba(255,255,255,.035);backdrop-filter:blur(22px);opacity:.68;transition:opacity .3s,border-color .3s}
+nav:hover,nav:focus-within{opacity:1;border-color:rgba(220,236,255,.2)}
+nav button{width:44px;height:44px;display:grid;place-items:center;background:transparent;border-radius:50%;transition:background .25s,transform .25s,color .25s}
+nav button:hover{background:rgba(223,241,255,.1);transform:translateY(-3px)}
+nav button:active{transform:scale(.9)}
+button:focus-visible{outline:1px solid #eaf5ff;outline-offset:5px}
+nav button[aria-pressed=true]{background:rgba(210,235,255,.14);color:#fff}
+svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
+.waves{display:none}
+#sound[aria-pressed=true] .waves{display:block}
+#sound[aria-pressed=true] .mute{display:none}
+#moon{position:fixed;z-index:3;left:70%;top:25%;width:82px;height:82px;padding:0;overflow:hidden;transform:translate(-50%,-50%);border-radius:50%;background:transparent;box-shadow:0 0 32px rgba(218,234,255,var(--moon-glow,.16)),0 0 90px rgba(153,196,245,var(--moon-haze,.08));touch-action:none;cursor:grab;transition:box-shadow .35s}
+#moon:hover,#moon:focus-visible{box-shadow:0 0 38px rgba(226,240,255,calc(var(--moon-glow,.16) + .08)),0 0 105px rgba(174,213,255,calc(var(--moon-haze,.08) + .04))}
+#moon:active{cursor:grabbing}
+.moon-surface,.moon-shadow{position:absolute;inset:0;border-radius:50%}
+.moon-surface{background:radial-gradient(circle at 36% 31%,#f2f5f3 0,#d7deda 47%,#9ba8aa 100%);box-shadow:inset -7px -8px 15px rgba(20,31,46,.28),inset 3px 3px 8px rgba(255,255,255,.2)}
+.moon-surface:before,.moon-surface:after{content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none}
+.moon-surface:before{opacity:.28;background:radial-gradient(ellipse at 31% 34%,rgba(74,88,91,.72) 0 9%,transparent 11%),radial-gradient(ellipse at 62% 56%,rgba(74,88,92,.58) 0 13%,transparent 15%),radial-gradient(ellipse at 44% 72%,rgba(79,93,96,.48) 0 8%,transparent 10%),radial-gradient(circle at 69% 25%,rgba(73,85,88,.36) 0 5%,transparent 7%)}
+.moon-surface:after{opacity:.36;background:radial-gradient(circle at 25% 58%,transparent 0 5%,rgba(79,91,94,.5) 6%,rgba(255,255,255,.3) 7%,transparent 9%),radial-gradient(circle at 58% 29%,transparent 0 3%,rgba(72,85,89,.46) 4%,rgba(255,255,255,.28) 5%,transparent 7%),radial-gradient(circle at 73% 68%,transparent 0 4%,rgba(74,87,91,.42) 5%,rgba(255,255,255,.24) 6%,transparent 8%),radial-gradient(circle at 39% 43%,rgba(67,81,85,.32) 0 2%,transparent 4%)}
+.moon-shadow{z-index:3;background:rgba(4,10,18,.965);box-shadow:-4px 0 10px rgba(2,7,13,.42);transform:translateX(var(--moon-shadow-x,20%));will-change:transform}
+#constellation-label{position:fixed;z-index:4;left:50%;top:50%;transform:translate(-50%,12px);font:500 10px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:.28em;color:rgba(224,239,255,.84);text-shadow:0 0 18px rgba(153,207,255,.6);white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .8s,transform .8s}
+#constellation-label.visible{opacity:1;transform:translate(-50%,0)}
+#star-name-panel{position:fixed;z-index:8;display:flex;align-items:center;gap:4px;width:210px;padding:6px 7px 6px 12px;transform:translate(-50%,-100%);border:1px solid rgba(220,236,255,.18);border-radius:24px;background:rgba(7,16,28,.84);box-shadow:0 12px 45px rgba(0,0,0,.35);backdrop-filter:blur(18px)}
+#star-name-panel[hidden]{display:none}
+#star-name-input{min-width:0;flex:1;padding:5px 2px;border:0;border-bottom:1px solid rgba(220,236,255,.3);outline:0;background:transparent;color:#eef7ff;font:500 11px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:.08em}
+#star-name-panel button{width:28px;height:28px;display:grid;place-items:center;border-radius:50%;background:transparent;color:#dcecff}
+#star-name-panel button[hidden]{display:none}
+#star-name-panel button:hover{background:rgba(220,236,255,.1)}
+#star-name-panel svg{width:15px;height:15px}
+body.naming canvas{cursor:crosshair}
+@media(max-width:480px){nav{bottom:max(22px,env(safe-area-inset-bottom));gap:2px;padding:7px}#moon{width:64px;height:64px}#constellation-label{font-size:8px;letter-spacing:.2em}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
