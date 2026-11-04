@@ -156,6 +156,111 @@
             height: auto;
         }
 
+        .project-video {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .project-gallery video {
+            display: block;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            object-fit: contain;
+            background: #000;
+        }
+
+        .video-volume-control {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .video-mute-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            padding: 2px;
+            border: 0;
+            background: transparent;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .volume-icon {
+            width: 18px;
+            height: 18px;
+            overflow: visible;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            filter: drop-shadow(0 0 3px rgb(255 255 255 / 80%));
+        }
+
+        .volume-icon .mute-mark { display: none; }
+        .video-mute-button[data-muted="true"] .volume-waves { display: none; }
+        .video-mute-button[data-muted="true"] .mute-mark { display: block; }
+
+        .video-volume-slider {
+            width: 72px;
+            height: 14px;
+            margin: 0;
+            appearance: none;
+            -webkit-appearance: none;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .video-volume-slider::-webkit-slider-runnable-track {
+            height: 3px;
+            border-radius: 999px;
+            background: rgb(255 255 255 / 75%);
+            box-shadow: 0 0 3px rgb(255 255 255 / 55%);
+        }
+
+        .video-volume-slider::-webkit-slider-thumb {
+            width: 11px;
+            height: 11px;
+            margin-top: -4px;
+            border: 0;
+            border-radius: 50%;
+            appearance: none;
+            -webkit-appearance: none;
+            background: #fff;
+            box-shadow: 0 0 4px rgb(255 255 255 / 70%);
+        }
+
+        .video-volume-slider::-moz-range-track {
+            height: 3px;
+            border: 0;
+            border-radius: 999px;
+            background: rgb(255 255 255 / 75%);
+        }
+
+        .video-volume-slider::-moz-range-thumb {
+            width: 11px;
+            height: 11px;
+            border: 0;
+            border-radius: 50%;
+            background: #fff;
+        }
+
+        .video-mute-button:focus-visible,
+        .video-volume-slider:focus-visible {
+            outline: 2px solid #fff;
+            outline-offset: 3px;
+        }
+
         .other-works-list {
             display: grid;
             gap: clamp(56px, 9vw, 110px);
@@ -223,6 +328,14 @@
             .toc-item { margin: 0; white-space: nowrap; }
             .details-content { width: 100%; padding: 40px 20px; overflow: visible; }
             h1 { font-size: 2rem; letter-spacing: 3px; }
+
+            .video-volume-control {
+                top: 8px;
+                right: 8px;
+                gap: 4px;
+            }
+
+            .video-volume-slider { width: 60px; }
         }
     </style>
 </head>
@@ -300,6 +413,16 @@
         <h1>Ecological Body</h1>
         <p class="time">2026</p>
         <div class="project-gallery">
+            <div class="project-video">
+                <video controls preload="metadata" playsinline width="1280" height="720" poster="optimized/poster/ecological-body.jpg" aria-label="Ecological Body project video">
+                    <source src="optimized/video/ecological-body.mp4" type="video/mp4">
+                    Your browser does not support the video element.
+                </video>
+                <div class="video-volume-control" aria-label="Ecological Body video volume controls">
+                    <button class="video-mute-button" type="button" aria-label="Mute video" aria-pressed="false" data-muted="false"><svg class="volume-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z"></path><path class="volume-waves" d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"></path><path class="mute-mark" d="m16.5 9 5 6m0-6-5 6"></path></svg></button>
+                    <input class="video-volume-slider" type="range" min="0" max="1" step="0.05" value="1" aria-label="Ecological Body video volume">
+                </div>
+            </div>
             <img src="optimized/detail/ecological-body/ecological-body-01.jpg" alt="Ecological Body presentation frame 1" decoding="async">
             <img src="optimized/detail/ecological-body/ecological-body-02.jpg" alt="Ecological Body presentation frame 2" loading="lazy" decoding="async">
             <img src="optimized/detail/ecological-body/ecological-body-03.jpg" alt="Ecological Body presentation frame 3" loading="lazy" decoding="async">
@@ -313,6 +436,16 @@
             <h1>Second Skin Protocol</h1>
             <p class="time">2026</p>
             <div class="project-gallery">
+                <div class="project-video">
+                    <video controls preload="metadata" playsinline width="1280" height="720" poster="optimized/poster/second-skin-protocol.jpg" aria-label="Second Skin Protocol project video">
+                        <source src="optimized/video/second-skin-protocol.mp4" type="video/mp4">
+                        Your browser does not support the video element.
+                    </video>
+                    <div class="video-volume-control" aria-label="Second Skin Protocol video volume controls">
+                        <button class="video-mute-button" type="button" aria-label="Mute video" aria-pressed="false" data-muted="false"><svg class="volume-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z"></path><path class="volume-waves" d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"></path><path class="mute-mark" d="m16.5 9 5 6m0-6-5 6"></path></svg></button>
+                        <input class="video-volume-slider" type="range" min="0" max="1" step="0.05" value="1" aria-label="Second Skin Protocol video volume">
+                    </div>
+                </div>
                 <img src="optimized/detail/second-skin/second-skin-01.jpg" alt="Second Skin Protocol presentation frame 1" decoding="async">
                 <img src="optimized/detail/second-skin/second-skin-02.jpg" alt="Second Skin Protocol presentation frame 2" loading="lazy" decoding="async">
                 <img src="optimized/detail/second-skin/second-skin-03.jpg" alt="Second Skin Protocol presentation frame 3" loading="lazy" decoding="async">
@@ -326,6 +459,16 @@
             <h1>Responsive Dermis</h1>
             <p class="time">2026</p>
             <div class="project-gallery">
+                <div class="project-video">
+                    <video controls preload="metadata" playsinline width="1280" height="720" poster="optimized/poster/responsive-dermis.jpg" aria-label="Responsive Dermis project video">
+                        <source src="optimized/video/responsive-dermis.mp4" type="video/mp4">
+                        Your browser does not support the video element.
+                    </video>
+                    <div class="video-volume-control" aria-label="Responsive Dermis video volume controls">
+                        <button class="video-mute-button" type="button" aria-label="Mute video" aria-pressed="false" data-muted="false"><svg class="volume-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z"></path><path class="volume-waves" d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"></path><path class="mute-mark" d="m16.5 9 5 6m0-6-5 6"></path></svg></button>
+                        <input class="video-volume-slider" type="range" min="0" max="1" step="0.05" value="1" aria-label="Responsive Dermis video volume">
+                    </div>
+                </div>
                 <img src="optimized/detail/responsive-dermis/responsive-dermis-01.jpg" alt="Responsive Dermis kinetic surface overview" decoding="async">
                 <p class="intro-text">An interactive kinetic surface controlled through touch, light, and vertical movement, exploring how artificial materials can imitate the sensitivity and behavior of living skin.</p>
                 <img src="optimized/detail/responsive-dermis/responsive-dermis-02.jpg" alt="Responsive Dermis interaction detail" loading="lazy" decoding="async">
@@ -465,6 +608,43 @@
                 showSection(item.dataset.section);
                 history.replaceState(null, '', `?section=${encodeURIComponent(item.dataset.section)}`);
             });
+        });
+
+        document.querySelectorAll('.project-video').forEach(container => {
+            const video = container.querySelector('video');
+            const muteButton = container.querySelector('.video-mute-button');
+            const volumeSlider = container.querySelector('.video-volume-slider');
+
+            function updateVolumeControls() {
+                const isMuted = video.muted || video.volume === 0;
+                muteButton.dataset.muted = String(isMuted);
+                muteButton.setAttribute('aria-label', isMuted ? 'Unmute video' : 'Mute video');
+                muteButton.setAttribute('aria-pressed', String(isMuted));
+                volumeSlider.value = isMuted ? '0' : String(video.volume);
+            }
+
+            muteButton.addEventListener('click', () => {
+                if (video.muted || video.volume === 0) {
+                    const restoredVolume = Number(container.dataset.lastVolume || 0.75);
+                    video.volume = restoredVolume;
+                    video.muted = false;
+                } else {
+                    container.dataset.lastVolume = String(video.volume);
+                    video.muted = true;
+                }
+                updateVolumeControls();
+            });
+
+            volumeSlider.addEventListener('input', () => {
+                const nextVolume = Number(volumeSlider.value);
+                video.volume = nextVolume;
+                video.muted = nextVolume === 0;
+                if (nextVolume > 0) container.dataset.lastVolume = String(nextVolume);
+                updateVolumeControls();
+            });
+
+            video.addEventListener('volumechange', updateVolumeControls);
+            updateVolumeControls();
         });
     });
 
